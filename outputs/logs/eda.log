@@ -1,0 +1,36 @@
+========== Initializing ==========
+Data directory is loaded !!!
+Outputs directory is loaded !!!
+========== Initializing ==========
+Data directory is loaded !!!
+Outputs directory is loaded !!!
+Spacy model en_core_web_sm is loaded !!!
+========== Loading Data... ==========
+Features: ['uniq_id', 'crawl_timestamp', 'product_url', 'product_name', 'product_category_tree', 'pid', 'retail_price', 'discounted_price', 'image', 'is_FK_Advantage_product', 'description', 'product_rating', 'overall_rating', 'brand', 'product_specifications']
+Raw data shape: (1050, 15)
+========== Processing Phase 1 ==========
+ ---> New feature : category ==> Extracted from product_category_tree
+ ---> New feature : _len_description  ==> Computed from description length
+Processed Data Features: ['uniq_id', 'description', 'category', '_len_description']
+Processed Data shape: (1050, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 3
+Number of outliers: 25
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+25 outliers cleaned...
+Processed Data shape: (1025, 4)
+========== Extra stop words  ==========
+1868 unique words added to extra stop words!!!
+701 top common words added to extra stop words!!!
+Cleaned data saved to outputs/data/data_clean.csv
