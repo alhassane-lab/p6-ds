@@ -1,22 +1,19 @@
-import os
-
-from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
-from src.pipelines.data_preprocessing import DataProcessor
+from src.pipelines.preprocessing import preprocess
+from src.utils.envconf import get_var_envs
+import click
 
 
-def main() -> None:
+@click.group()
+@click.pass_context
+def main(ctx: click.Context) -> None:
     """
     Root command.
     """
+    ctx.ensure_object(dict)
+    ctx.obj["file_name"] = get_var_envs()['file']
 
-    preprocessor = DataProcessor()
-    raw_data = preprocessor.load_data()
-    cleaned_data = preprocessor.process_data(raw_data)
-    cleaned_data = preprocessor.perform_eda(cleaned_data)
-    final_data = preprocessor.full_process_data(cleaned_data)
 
+main.add_command(preprocess)
 
 if __name__ == "__main__":
     main()
-

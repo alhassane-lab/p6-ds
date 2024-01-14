@@ -4,7 +4,7 @@ logger = setup_logging("Preprocessing")
 var_envs = get_var_envs()
 
 
-class DataProcessor:
+class FeatureExtractor:
     """
     This class contains functions for data exploration, cleaning and preprocessing.
     """

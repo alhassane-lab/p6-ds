@@ -4,15 +4,15 @@ Module for text data exploration, cleaning, visualization, feature extraction.
 import spacy
 import os
 from pathlib import Path
+import click
 import pandas as pd
 import matplotlib.pyplot as plt
-from src.pipelines.eda import (univariate, bivariate, anova, outliers)
+from src.pipelines.eda import perform_eda
 from src.utils import setup_logging, get_var_envs
 from unidecode import unidecode
 from wordcloud import WordCloud
 
-
-logger = setup_logging("Preprocessing")
+logger = setup_logging("Data-Preprocessing", "processing")
 var_envs = get_var_envs()
 
 
@@ -26,7 +26,7 @@ class DataProcessor:
         Initializes the DataProcessor class.
         """
         logger.info("========== Initializing ==========")
-        print(Path(".").resolve())
+
         root_dir = var_envs['root']
         self.data_dir = os.path.join(root_dir, 'data/')
         logger.info("Data directory is loaded !!!")
@@ -36,12 +36,13 @@ class DataProcessor:
         self.nlp = spacy.load(model)
         logger.info(f"Spacy model {model} is loaded !!!")
 
-    def load_data(self) -> pd.DataFrame:
+    def load_data(self, file_name) -> pd.DataFrame:
         """
         import data from local path
         """
+        data_path = self.data_dir + file_name
         logger.info("========== Loading Data... ==========")
-        data = pd.read_csv(self.data_dir + var_envs['file'])
+        data = pd.read_csv(data_path)
         logger.info(f"Features: {list(data.columns)}")
         logger.info(f"Raw data shape: {data.shape}")
         return data
@@ -57,22 +58,6 @@ class DataProcessor:
         logger.info(" ---> New feature : category ==> Extracted from product_category_tree")
         logger.info(" ---> New feature : _len_description  ==> Computed from description length")
         logger.info("Processed Data Features: {}".format(list(data.columns)))
-        logger.info("Processed Data shape: {}".format(data.shape))
-        return data
-
-    def perform_eda(self, data):
-        numerical = '_len_description'
-        categorical = 'category'
-        eda_results_path = self.outputs_dir
-        for folder in ['plots/', 'data/']:
-            my_folder = eda_results_path + folder
-            if not os.path.exists(my_folder):
-                os.makedirs(my_folder)
-        univariate(data, numerical, eda_results_path)
-        bivariate(data, (numerical, categorical), eda_results_path)
-        anova(data, (numerical, [categorical]))
-        data, outs = outliers(data, numerical, eda_results_path)
-        logger.info(f"{len(outs)} outliers cleaned...")
         logger.info("Processed Data shape: {}".format(data.shape))
         return data
 
@@ -141,20 +126,28 @@ class DataProcessor:
         plt.show()
 
     def get_extra_stop_words(self, data):
-        logger.info("========== Extra stop words  ==========")
+        logger.info("========== Stop words cleaning  ==========")
         extra_words = []
+        logger.info("Creating a corpus ...")
         raw_corpus = self.create_corpus(data)
+        logger.info(
+            f"The corpus is created !!! <---> Size : {len(raw_corpus)} <---> Unique_words_count: {len(set(raw_corpus))}")
+        logger.info("Cleaning the corpus ...")
         raw_corpus_cleaned = self.clean_text(raw_corpus, False, extra_words)
+        logger.info(
+            f"The corpus is cleaned <---> Size : {len(raw_corpus_cleaned)} <---> Unique_words_count: {len(set(raw_corpus_cleaned))}")
         tmp = pd.Series(raw_corpus_cleaned).value_counts()
+        logger.info("Computing unique words ...")
         unique_words = list(set(tmp[tmp == 1].index))
         extra_words.extend(unique_words)
         logger.info(f"{len(unique_words)} unique words added to extra stop words!!!")
-        # List of common words to all categories simultaneously.
+        logger.info("Computing top common words ... <--> words common 4 categories ++")
         top_common_words = [word for word in tmp.index if
                             self.count_word_in_category(word, data, 'category') >= 4]
 
         extra_words.extend(top_common_words)
         logger.info(f"{len(top_common_words)} top common words added to extra stop words!!!")
+        logger.info(f"Total words to retrieve from vocab :{len(unique_words) + len(top_common_words)}")
         return extra_words
 
     def full_process_data(self, data):
@@ -162,8 +155,22 @@ class DataProcessor:
         data = data.assign(text=data.description.apply(
             lambda x: self.clean_text(x, False, extra_words)).apply(
             lambda x: " ".join(x)))
-        self.viz_wordcloud_per_category(data, 'category', extra_words=extra_words)
+        self.viz_wordcloud_per_category(data, 'category', extra_words)
         file_name = f"data/data_clean.csv"
         data.to_csv(self.outputs_dir + file_name, index=False)
         logger.info(f"Cleaned data saved to outputs/{file_name}")
         return data
+
+
+@click.command
+@click.pass_context
+def preprocess(ctx: click.Context) -> None:
+    """
+    Root command.
+    """
+    file_name = ctx.obj["file_name"]
+    preprocessor = DataProcessor()
+    raw_data = preprocessor.load_data(file_name)
+    cleaned_data = preprocessor.process_data(raw_data)
+    cleaned_data = perform_eda(cleaned_data)
+    final_data = preprocessor.full_process_data(cleaned_data)

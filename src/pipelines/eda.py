@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 import numpy as np
-from src.utils import setup_logging
+import os
+from src.utils import setup_logging, get_var_envs
 
-logger = setup_logging('Exploratory-Data-Analysis')
+logger = setup_logging('Exploratory-Data-Analysis', 'eda')
 
 
 def univariate(data: object, arg: str, outputs_dir: str) -> None:
@@ -82,11 +83,11 @@ def outliers(data: object, arg: str, outputs_dir: str):
     lower_bound = q1 - threshold * iqr
     upper_bound = q3 + threshold * iqr
 
-    outliers = data_array[(data_array < lower_bound) | (data_array > upper_bound)]
-    logger.info(f"Number of outliers: {len(outliers)}")
+    outliers_list = data_array[(data_array < lower_bound) | (data_array > upper_bound)]
+    logger.info(f"Number of outliers_list: {len(outliers_list)}")
 
-    ok = data[~data[arg].isin(outliers)]
-    out = data[data[arg].isin(outliers)]
+    ok = data[~data[arg].isin(outliers_list)]
+    out = data[data[arg].isin(outliers_list)]
     file_name = f"data/{arg}_outliers.csv"
     out.to_csv(outputs_dir + file_name, index=False)
     logger.info(f"Outliers saved to : outputs/{file_name}")
@@ -100,3 +101,21 @@ def outliers(data: object, arg: str, outputs_dir: str):
     logger.info(f"Outliers plot saved to : outputs/{file_name}")
 
     return ok, out
+
+
+def perform_eda(data):
+    numerical = '_len_description'
+    categorical = 'category'
+    root_dir = get_var_envs()['root']
+    eda_results_path = os.path.join(root_dir, "outputs/")
+    for folder in ['plots/', 'data/']:
+        my_folder = eda_results_path + folder
+        if not os.path.exists(my_folder):
+            os.makedirs(my_folder)
+    univariate(data, numerical, eda_results_path)
+    bivariate(data, (numerical, categorical), eda_results_path)
+    anova(data, (numerical, [categorical]))
+    data, outs = outliers(data, numerical, eda_results_path)
+    logger.info(f"{len(outs)} outliers cleaned...")
+    logger.info("Processed Data shape: {}".format(data.shape))
+    return data
