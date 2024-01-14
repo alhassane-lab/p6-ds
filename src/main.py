@@ -1,4 +1,5 @@
-from src.pipelines.preprocessing import preprocess
+from src.pipelines.preprocess import process_data
+from src.pipelines.extract import extract_features
 from src.utils.envconf import get_var_envs
 import click
 
@@ -13,7 +14,8 @@ def main(ctx: click.Context) -> None:
     ctx.obj["file_name"] = get_var_envs()['file']
 
 
-main.add_command(preprocess)
+main.add_command(process_data)
+main.add_command(extract_features)
 
 if __name__ == "__main__":
     main()

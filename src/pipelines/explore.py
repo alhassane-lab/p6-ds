@@ -6,14 +6,14 @@ import numpy as np
 import os
 from src.utils import setup_logging, get_var_envs
 
-logger = setup_logging('Exploratory-Data-Analysis', 'eda')
+logger = setup_logging('Data-Exploration', 'eda')
 
 
 def univariate(data: object, arg: str, outputs_dir: str) -> None:
     """
     Performs univariate analysis.
     @data : data table
-    @arg: a numerical feature
+    @arg: a numerical target
     @results_dir: results saving directory path
     """
     logger.info(f"========== Univariate Analysis ==========")
@@ -68,13 +68,13 @@ def anova(data: object, args: tuple[str, list]) -> None:
 
 def outliers(data: object, arg: str, outputs_dir: str):
     """
-    Detects Outliers for a numerical feature
+    Detects Outliers for a numerical target
     @data : data table
-    @arg: a numerical feature
+    @arg: a numerical target
     """
     logger.info(f"========== Outliers Analysis ==========")
     data_array = np.array(data[arg])
-    threshold = 3
+    threshold = 4
     logger.info(f"Method : Percentile <-->  Threshold: {threshold}")
     q1 = np.percentile(data_array, 25)
     q3 = np.percentile(data_array, 75)
