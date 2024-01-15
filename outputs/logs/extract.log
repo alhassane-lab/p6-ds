@@ -1,0 +1,304 @@
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Model Tuning  ==========
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Model Tuning  ==========
+Perplexity x learning_rate
+Model name: CountVectorizer()
+Target variable: category
+Target unique values: ['Watches ', 'Home Decor & Festive Needs ', 'Baby Care ', 'Beauty and Personal Care ', 'Kitchen & Dining ', 'Home Furnishing ', 'Computers ']
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4366  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 100
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Model Tuning  ==========
+Perplexity x learning_rate
+Model name: CountVectorizer()
+Target variable: category
+Target unique values: ['Beauty and Personal Care ', 'Baby Care ', 'Computers ', 'Watches ', 'Home Furnishing ', 'Kitchen & Dining ', 'Home Decor & Festive Needs ']
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4366  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 100
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4289  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 200
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.3558  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 300
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.3733  --  Time : 5.0  --  Perpexit : 30  --  Learning_rate : 100
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4272  --  Time : 5.0  --  Perpexit : 30  --  Learning_rate : 200
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.3747  --  Time : 5.0  --  Perpexit : 30  --  Learning_rate : 300
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.3833  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 100
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.3842  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 200
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4566  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 300
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4081  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 100
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.3662  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 200
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4057  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 300
+========== Data Visualization  ==========
+Visuals saved to : outputs/plots/tsne_kmeans_plot.png
+========== Model Tuning  ==========
+Perplexity x learning_rate
+Model name: TfidfVectorizer()
+Target variable: category
+Target unique values: ['Beauty and Personal Care ', 'Baby Care ', 'Computers ', 'Watches ', 'Home Furnishing ', 'Kitchen & Dining ', 'Home Decor & Festive Needs ']
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4643  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 100
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.5618  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 200
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.5448  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 300
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4608  --  Time : 5.0  --  Perpexit : 30  --  Learning_rate : 100
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4448  --  Time : 5.0  --  Perpexit : 30  --  Learning_rate : 200
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4729  --  Time : 5.0  --  Perpexit : 30  --  Learning_rate : 300
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4751  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 100
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4001  --  Time : 5.0  --  Perpexit : 40  --  Learning_rate : 200
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.3958  --  Time : 5.0  --  Perpexit : 40  --  Learning_rate : 300
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4362  --  Time : 5.0  --  Perpexit : 50  --  Learning_rate : 100
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.3941  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 200
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+ARI: 0.4194  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 300
+========== Data Visualization  ==========
+Visuals saved to : outputs/plots/tsne_kmeans_plot.png
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Initializing Model ... ==========
+Feature variable: Text
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+========== Modeling ... ==========
+Perplexity x learning_rate
+Model name: CountVectorizer()
+Target variable: category
+Target unique values: ['Home Decor & Festive Needs ', 'Kitchen & Dining ', 'Baby Care ', 'Watches ', 'Beauty and Personal Care ', 'Computers ', 'Home Furnishing ']
+ARI: 0.4366  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 100
+ARI: 0.4289  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 200
+ARI: 0.3558  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 300
+ARI: 0.3733  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 100
+ARI: 0.4272  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 200
+ARI: 0.3747  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 300
+ARI: 0.3833  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 100
+ARI: 0.3842  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 200
+ARI: 0.4566  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 300
+ARI: 0.4081  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 100
+ARI: 0.3662  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 200
+ARI: 0.4057  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 300
+========== Data Visualization  ==========
+Visuals saved to : outputs/plots/tsne_kmeans_plot.png
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+========== Modeling ... ==========
+Perplexity x learning_rate
+Model name: CountVectorizer()
+Target variable: category
+Target unique values: ['Home Decor & Festive Needs ', 'Beauty and Personal Care ', 'Home Furnishing ', 'Watches ', 'Computers ', 'Baby Care ', 'Kitchen & Dining ']
+ARI: 0.4366  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 100
+ARI: 0.4289  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 200
+ARI: 0.3558  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 300
+ARI: 0.3733  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 100
+ARI: 0.4272  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 200
+ARI: 0.3747  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 300
+ARI: 0.3833  --  Time : 7.0  --  Perpexit : 40  --  Learning_rate : 100
+ARI: 0.3842  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 200
+ARI: 0.4566  --  Time : 8.0  --  Perpexit : 40  --  Learning_rate : 300
+ARI: 0.4081  --  Time : 10.0  --  Perpexit : 50  --  Learning_rate : 100
+ARI: 0.3662  --  Time : 8.0  --  Perpexit : 50  --  Learning_rate : 200
+ARI: 0.4057  --  Time : 8.0  --  Perpexit : 50  --  Learning_rate : 300
+========== Data Visualization  ==========
+Visuals saved to : outputs/plots/tsne_kmeans_plot.png
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+========== Modeling ... ==========
+Perplexity x learning_rate
+Model name: TfidfVectorizer()
+Target variable: category
+Target unique values: ['Home Decor & Festive Needs ', 'Beauty and Personal Care ', 'Home Furnishing ', 'Watches ', 'Computers ', 'Baby Care ', 'Kitchen & Dining ']
+ARI: 0.4643  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 100
+ARI: 0.5618  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 200
+ARI: 0.5448  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 300
+ARI: 0.4608  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 100
+ARI: 0.4448  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 200
+ARI: 0.4729  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 300
+ARI: 0.4751  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 100
+ARI: 0.4001  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 200
+ARI: 0.3958  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 300
+ARI: 0.4362  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 100
+ARI: 0.3941  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 200
+ARI: 0.4194  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 300
+========== Data Visualization  ==========
+Visuals saved to : outputs/plots/tsne_kmeans_plot.png
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+========== Modeling ... ==========
+Perplexity x learning_rate
+Model name: CountVectorizer()
+Target variable: category
+Target unique values: ['Home Decor & Festive Needs ', 'Kitchen & Dining ', 'Baby Care ', 'Home Furnishing ', 'Watches ', 'Computers ', 'Beauty and Personal Care ']
+ARI: 0.3738  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 100
+ARI: 0.3732  --  Time : 7.0  --  Perpexit : 20  --  Learning_rate : 200
+ARI: 0.3828  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 300
+ARI: 0.3486  --  Time : 8.0  --  Perpexit : 30  --  Learning_rate : 100
+ARI: 0.3687  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 200
+ARI: 0.3502  --  Time : 7.0  --  Perpexit : 30  --  Learning_rate : 300
+ARI: 0.3138  --  Time : 7.0  --  Perpexit : 40  --  Learning_rate : 100
+ARI: 0.3986  --  Time : 7.0  --  Perpexit : 40  --  Learning_rate : 200
+ARI: 0.3906  --  Time : 7.0  --  Perpexit : 40  --  Learning_rate : 300
+ARI: 0.3343  --  Time : 8.0  --  Perpexit : 50  --  Learning_rate : 100
+ARI: 0.3422  --  Time : 8.0  --  Perpexit : 50  --  Learning_rate : 200
+ARI: 0.333  --  Time : 8.0  --  Perpexit : 50  --  Learning_rate : 300
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+========== Modeling ... ==========
+Perplexity x learning_rate
+Model name: TfidfVectorizer()
+Target variable: category
+Target unique values: ['Home Decor & Festive Needs ', 'Kitchen & Dining ', 'Baby Care ', 'Home Furnishing ', 'Watches ', 'Computers ', 'Beauty and Personal Care ']
+ARI: 0.5841  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 100
+ARI: 0.5731  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 200
+ARI: 0.5345  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 300
+ARI: 0.4946  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 100
+ARI: 0.4786  --  Time : 7.0  --  Perpexit : 30  --  Learning_rate : 200
+ARI: 0.4618  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 300
+ARI: 0.4477  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 100
+ARI: 0.4368  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 200
+ARI: 0.4598  --  Time : 7.0  --  Perpexit : 40  --  Learning_rate : 300
+ARI: 0.4591  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 100
+ARI: 0.4471  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 200
+ARI: 0.4314  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 300
+========== Initializing ==========
+========== Loading Data... ==========
+Features: ['uniq_id', 'description', 'category', '_len_description', 'text', '_len__text']
+Raw data shape: (1035, 6)
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+========== Modeling ... ==========
+Perplexity x learning_rate
+Model name: CountVectorizer()
+Target variable: category
+Target unique values: ['Home Furnishing ', 'Home Decor & Festive Needs ', 'Kitchen & Dining ', 'Computers ', 'Baby Care ', 'Beauty and Personal Care ', 'Watches ']
+ARI: 0.3738  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 100
+ARI: 0.3732  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 200
+ARI: 0.3828  --  Time : 6.0  --  Perpexit : 20  --  Learning_rate : 300
+ARI: 0.3486  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 100
+ARI: 0.3687  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 200
+ARI: 0.3502  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 300
+ARI: 0.3138  --  Time : 7.0  --  Perpexit : 40  --  Learning_rate : 100
+ARI: 0.3986  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 200
+ARI: 0.3906  --  Time : 7.0  --  Perpexit : 40  --  Learning_rate : 300
+ARI: 0.3343  --  Time : 8.0  --  Perpexit : 50  --  Learning_rate : 100
+ARI: 0.3422  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 200
+ARI: 0.333  --  Time : 7.0  --  Perpexit : 50  --  Learning_rate : 300
+========== Initializing Model ... ==========
+Feature variable: text
+Data fitting ...
+========== Modeling ... ==========
+Perplexity x learning_rate
+Model name: TfidfVectorizer()
+Target variable: category
+Target unique values: ['Home Furnishing ', 'Home Decor & Festive Needs ', 'Kitchen & Dining ', 'Computers ', 'Baby Care ', 'Beauty and Personal Care ', 'Watches ']
+ARI: 0.5841  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 100
+ARI: 0.5731  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 200
+ARI: 0.5345  --  Time : 5.0  --  Perpexit : 20  --  Learning_rate : 300
+ARI: 0.4946  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 100
+ARI: 0.4786  --  Time : 5.0  --  Perpexit : 30  --  Learning_rate : 200
+ARI: 0.4618  --  Time : 6.0  --  Perpexit : 30  --  Learning_rate : 300
+ARI: 0.4477  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 100
+ARI: 0.4368  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 200
+ARI: 0.4598  --  Time : 6.0  --  Perpexit : 40  --  Learning_rate : 300
+ARI: 0.4591  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 100
+ARI: 0.4471  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 200
+ARI: 0.4314  --  Time : 6.0  --  Perpexit : 50  --  Learning_rate : 300
