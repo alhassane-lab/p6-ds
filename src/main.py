@@ -1,5 +1,5 @@
 from src.pipelines.preprocess import process_data
-from src.pipelines.extract import extract_features
+from src.pipelines.model import extract_features
 from src.utils.envconf import get_var_envs
 import click
 

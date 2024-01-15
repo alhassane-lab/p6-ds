@@ -266,3 +266,156 @@ Outliers saved to : outputs/data/_len_description_outliers.csv
 Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
 15 outliers cleaned...
 Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)
+========== Univariate Analysis ==========
+Feature : _len_description
+_len_description distribution plot saved : outputs/plots/bivariate__len_description.png
+========== Bivariate Analysis ==========
+Features : _len_description & category
+_len_description x category distribution plot saved : outputs/plots/bivariate__len_description_category_plot.png
+========== Correlation Test ==========
+anova test : _len_description & category
+pvalue : 7.848605232002287e-11
+Reject H0. _len_description has a significant effect on one category at least
+========== Outliers Analysis ==========
+Method : Percentile <-->  Threshold: 4
+Number of outliers_list: 15
+Outliers saved to : outputs/data/_len_description_outliers.csv
+Outliers plot saved to : outputs/plots/outliers__len_description_plot_.png
+15 outliers cleaned...
+Processed Data shape: (1035, 4)

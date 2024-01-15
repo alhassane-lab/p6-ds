@@ -1,8 +1,8 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from src.utils import setup_logging, get_var_envs
+from src.utils import setup_logging, get_var_envs, get_embeddings
 from sklearn import cluster, metrics
-from sklearn import manifold, decomposition
+from sklearn import manifold
 import numpy as np
 import matplotlib.pyplot as plt
 import click
@@ -11,14 +11,13 @@ import os
 import time
 import json
 
-logger = setup_logging("Feature-Extraction", "ft_extract")
-var_envs = get_var_envs()
-data_path = os.path.join(var_envs['root'], f"outputs/data/")
-plots_path = os.path.join(var_envs['root'], f"outputs/plots/")
+logger = setup_logging("Feature-Extraction", "extract")
+ROOT = get_var_envs()['root']
 
 
 def load_data():
     logger.info("========== Loading Data... ==========")
+    data_path = os.path.join(ROOT, f"outputs/data/")
     list_of_files = glob.glob(data_path + "data_clean_*")
     latest_file = max(list_of_files, key=os.path.getctime)
     data = pd.read_csv(latest_file)
@@ -35,7 +34,7 @@ def category_metrics(data, target):
     return l_cat, y_cat_num
 
 
-def get_features(data, feature: str, model):
+def get_features(data, model: object, feature: str):
     logger.info("========== Initializing Model ... ==========")
     logger.info(f"Feature variable: {feature}")
     features = model.fit_transform(data[feature])
@@ -43,9 +42,8 @@ def get_features(data, feature: str, model):
     return features
 
 
-def ari_fct(data,  feature: str, model: object, perplexity, learning_rate, l_cat, y_cat_num):
+def ari_fct(features, perplexity, learning_rate, l_cat, y_cat_num):
     # time1 = time.time()
-    features = get_features(data, feature, model)
     num_labels = len(l_cat)
     tsne = manifold.TSNE(n_components=2, perplexity=perplexity, n_iter=2000,
                          init='random', learning_rate=learning_rate, random_state=42)
@@ -62,9 +60,9 @@ def ari_fct(data,  feature: str, model: object, perplexity, learning_rate, l_cat
     return ari_score, x_tsne, cls.labels_
 
 
-def tsne_visu_fct(x_tsne, labels, l_cat, y_cat_num) -> None:
+def tsne_visu_fct(x_tsne, labels, l_cat, y_cat_num, model) -> None:
     logger.info("========== Data Visualization  ==========")
-
+    plots_dir = os.path.join(ROOT, f"outputs/plots/")
     fig = plt.figure(figsize=(15, 6))
     ax = fig.add_subplot(121)
     scatter = ax.scatter(x_tsne[:, 0], x_tsne[:, 1], c=y_cat_num, cmap='Set1')
@@ -75,51 +73,65 @@ def tsne_visu_fct(x_tsne, labels, l_cat, y_cat_num) -> None:
     scatter = ax.scatter(x_tsne[:, 0], x_tsne[:, 1], c=labels, cmap='Set1')
     ax.legend(handles=scatter.legend_elements()[0], labels=set(labels), loc="best", title="Clusters")
     plt.title('Description par clusters')
-    plt.savefig(plots_path + 'tsne_kmeans_plot.png')
+    plt.savefig(plots_dir + f'tsne_kmeans_{repr(model)}_plot.png')
     logger.info("Visuals saved to : outputs/plots/tsne_kmeans_plot.png")
     plt.show()
 
 
 def test_model(data: object,
                target: str,
-               feature: str,
                model: object,
+               features,
                tuning_params: tuple[list[str]],
                ) -> object:
     """
     @tuning_params : perplexity and learning rate couple lists
     """
-    logger.info("========== Model Tuning  ==========")
+    logger.info("========== Modeling ... ==========")
+    results_file = os.path.join(ROOT, "outputs/data/results.json")
+
+    with open(results_file, "r") as f:
+        results = json.load(f)
+
     logger.info("Perplexity x learning_rate")
     logger.info(f"Model name: {repr(model)}")
     l_cat, y_cat_num = category_metrics(data, target)
-    results = {}
+
     i = 0
     for perplexity in tuning_params[0]:
         for learning_rate in tuning_params[1]:
             time1 = time.time()
-            ari_score, x_tsne, labels = ari_fct(data, feature, model, perplexity, learning_rate, l_cat,
+            ari_score, x_tsne, labels = ari_fct(features, perplexity, learning_rate, l_cat,
                                                 y_cat_num)
             time2 = np.round(time.time() - time1, 0)
-            logger.info(f"ARI: {ari_score}  --  Time : {time2}  --  Perpexit : {perplexity}  --  Learning_rate : {learning_rate}")
-            row = [repr(model), ari_score, perplexity, learning_rate]
-            results[i] = row
+            logger.info(
+                f"ARI: {ari_score}  --  Time : {time2}  --  Perpexit : {perplexity}  --  Learning_rate : {learning_rate}")
+            row = [ari_score, perplexity, learning_rate]
+            results[f"Test_{i} <--> {repr(model)}"] = row
             i += 1
 
     # results_df = pd.DataFrame.from_dict(results, columns=["model", "ari_score", "perplexity", "learning_rate"],
     #                                     orient='index')
     # results_df.to_csv(data_path + "results.csv")
 
-    with open(data_path + "results.json", "w") as outfile:
+    with open(results_file, "w") as outfile:
         json.dump(results, outfile)
-    tsne_visu_fct(x_tsne, labels, l_cat, y_cat_num)
+
+    #tsne_visu_fct(x_tsne, labels, l_cat, y_cat_num, model)
 
 
 @click.command
 @click.pass_context
 def extract_features(ctx: click.Context):
     logger.info("========== Initializing ==========")
+    tuning_params = ([20, 30, 40, 50], [100, 200, 300])
     data = load_data()
-    test_model(data, 'category', 'text',
-               CountVectorizer(),
-               ([20, 30, 40, 50], [100, 200, 300]))
+    features = get_features(data, CountVectorizer(), 'text')
+    test_model(data, 'category', CountVectorizer(), features, tuning_params)
+
+    features = get_features(data, TfidfVectorizer(), 'text')
+    test_model(data, 'category', TfidfVectorizer(), features, tuning_params)
+
+    embeddings = get_embeddings(data)
+    test_model(data, 'category', "Word2vec", embeddings, tuning_params)
+    # test_model(data, 'category', 'text', CountVectorizer(), tuning_params)

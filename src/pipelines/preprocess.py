@@ -11,6 +11,7 @@ from src.pipelines.explore import perform_eda
 from src.utils import setup_logging, get_var_envs
 from unidecode import unidecode
 from wordcloud import WordCloud
+from nltk.stem import SnowballStemmer
 
 TODAY = datetime.today().strftime("%Y%m%d")
 logger = setup_logging("Data-Preprocessing", "processing")
@@ -36,6 +37,7 @@ class DataProcessor:
         model = "en_core_web_trf"
         self.nlp = spacy.load(model)
         logger.info(f"Spacy model {model} is loaded !!!")
+        self.stopwords = self.nlp.Defaults.stop_words
 
     def load_data(self, file_name) -> pd.DataFrame:
         """
@@ -62,22 +64,32 @@ class DataProcessor:
         logger.info("Processed Data shape: {}".format(data.shape))
         return data
 
-    def clean_text(self, text: str,  extra_words: list[str]) -> list[str]:
-        # Add custom infix patterns for tokenization
+    def clean_text(self, text: str, extra_words: set[str], use_stemmer: bool = False) -> list[str]:
+        # Custom infix patterns
         infix_patterns = list(self.nlp.Defaults.infixes)
         infix_patterns.extend([r"[A-Z][a-z0-9]+", r'\b\w+-\w+\b'])
         infix_regex = spacy.util.compile_infix_regex(infix_patterns)
         self.nlp.tokenizer.infix_finditer = infix_regex.finditer
+
         doc = self.nlp(text)
+
+        # Stop words
+        stopwords = self.stopwords
+        stopwords = stopwords.union(set(extra_words))
+
+        # Stemmer
+        stemmer = SnowballStemmer("english") if use_stemmer else None
+
         text_clean = [
-            (token.lemma_.lower())
+            unidecode(stemmer.stem(token.text.lower())) if use_stemmer else unidecode(token.lemma_.lower())
             for token in doc
             if (
                     not token.is_punct
                     and not token.is_space
                     and not token.is_stop
+                    and not token.like_url
                     and not len(token) < 3
-                    and not str(token).lower() in extra_words
+                    and not str(token).lower() in stopwords
             )
         ]
         return text_clean
@@ -118,6 +130,7 @@ class DataProcessor:
 
     def get_extra_stop_words(self, data: str) -> list[str]:
         logger.info("========== Stop words cleaning ... ==========")
+        logger.info(f"Defaults stopwords number <-->  {len(self.stopwords)}")
         extra_words = []
         logger.info("Creating a corpus ...")
         raw_corpus = self.create_corpus(data)
@@ -133,14 +146,15 @@ class DataProcessor:
         extra_words.extend(unique_words)
         logger.info(f"{len(unique_words)} unique words added to extra stop words!!!")
         logger.info("Computing top common words ... <--> words common 4 categories ++")
-        #top_common_words = [word for word in tmp.index if
-                            #self.count_word_in_category(word, data, 'category') == 6]
+        # top_common_words = [word for word in tmp.index if
+        # self.count_word_in_category(word, data, 'category') == 6]
 
         top_common_words = [word for word in tmp[tmp == 2].index if
                             self.count_word_in_category(word, data, 'category') == len(data.category.unique())]
         extra_words.extend(top_common_words)
         logger.info(f"{len(top_common_words)} top common words added to extra stop words!!!")
-        most_frequent_common_words = [word for word in tmp[tmp.values[:50]].index if self.count_word_in_category(word, data, 'category')>=3]
+        most_frequent_common_words = [word for word in tmp[tmp.values[:50]].index if
+                                      self.count_word_in_category(word, data, 'category') <= 4]
         extra_words.extend(most_frequent_common_words)
         logger.info(f"{len(most_frequent_common_words)} most frequent common words added in the list.")
         extra_words = list(set(extra_words))
@@ -150,14 +164,17 @@ class DataProcessor:
     def full_process_data(self, data: object) -> None:
         extra_words = self.get_extra_stop_words(data)
         data = (data
-                .assign(text=data.description
-                        .apply(lambda x: self.clean_text(x, extra_words))
+                .assign(lema_desc=data.description
+                        .apply(lambda x: self.clean_text(x, extra_words, False))
                         .apply(lambda x: " ".join(x)))
-
+                .assign(stem_desc=data.description
+                        .apply(lambda x: self.clean_text(x, extra_words, True))
+                        .apply(lambda x: " ".join(x)))
                 )
-        data['_len__text'] = data['text'].apply(lambda x: len(str(x)))
+        data['_len__lem'] = data['lema_desc'].apply(lambda x: len(str(x)))
+        data['_len__stem'] = data['stem_desc'].apply(lambda x: len(str(x)))
         logger.info(f"Data Infos : {data.info()}")
-        self.viz_wordcloud_per_category(data, 'category', extra_words)
+        # self.viz_wordcloud_per_category(data, 'category', extra_words)
         file_name = f"data/data_clean_{TODAY}.csv"
         data.to_csv(self.outputs_dir + file_name, index=False)
         logger.info(f"Cleaned data saved to outputs/{file_name}")
