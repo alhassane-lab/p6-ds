@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from src.utils import setup_logging, get_var_envs, get_embeddings
+from src.utils import setup_logging, get_var_envs
+from src.utils.embconf import WordEmbeddings
 from sklearn import cluster, metrics
 from sklearn import manifold
 import numpy as np
@@ -16,6 +17,9 @@ ROOT = get_var_envs()['root']
 
 
 def load_data():
+    """
+    Load data from the latest file in the data directory.
+    """
     logger.info("========== Loading Data... ==========")
     data_path = os.path.join(ROOT, f"outputs/data/")
     list_of_files = glob.glob(data_path + "data_clean_*")
@@ -27,6 +31,9 @@ def load_data():
 
 
 def category_metrics(data, target):
+    """
+    Calculate category metrics.
+    """
     logger.info(f"Target variable: {target}")
     l_cat = list(set(data[target]))
     logger.info(f"Target unique values: {l_cat}")
@@ -35,6 +42,9 @@ def category_metrics(data, target):
 
 
 def get_features(data, model: object, feature: str):
+    """
+    Initialize the model and extract features.
+    """
     logger.info("========== Initializing Model ... ==========")
     logger.info(f"Feature variable: {feature}")
     features = model.fit_transform(data[feature])
@@ -43,24 +53,24 @@ def get_features(data, model: object, feature: str):
 
 
 def ari_fct(features, perplexity, learning_rate, l_cat, y_cat_num):
-    # time1 = time.time()
+    """
+    Calculate ARI score using TSNE and KMeans clustering.
+    """
     num_labels = len(l_cat)
     tsne = manifold.TSNE(n_components=2, perplexity=perplexity, n_iter=2000,
                          init='random', learning_rate=learning_rate, random_state=42)
     x_tsne = tsne.fit_transform(features)
 
-    # Détermination des clusters à partir des données après Tsne
     cls = cluster.KMeans(n_clusters=num_labels, n_init=100, random_state=42)
     cls.fit(x_tsne)
     ari_score = np.round(metrics.adjusted_rand_score(y_cat_num, cls.labels_), 4)
-    # time2 = np.round(time.time() - time1, 0)
-    # logger.info(f"ARI: {ari_score}  --  Time : {time2}")
-    # time2 = np.round(time.time() - time1, 0)
-    # print("ari_score : ", ari_score, "time : ", time2)
     return ari_score, x_tsne, cls.labels_
 
 
 def tsne_visu_fct(x_tsne, labels, l_cat, y_cat_num, model) -> None:
+    """
+    Visualize TSNE results.
+    """
     logger.info("========== Data Visualization  ==========")
     plots_dir = os.path.join(ROOT, f"outputs/plots/")
     fig = plt.figure(figsize=(15, 6))
@@ -85,7 +95,7 @@ def test_model(data: object,
                tuning_params: tuple[list[str]],
                ) -> object:
     """
-    @tuning_params : perplexity and learning rate couple lists
+    Test the model with different tuning parameters.
     """
     logger.info("========== Modeling ... ==========")
     results_file = os.path.join(ROOT, "outputs/data/results.json")
@@ -105,33 +115,31 @@ def test_model(data: object,
                                                 y_cat_num)
             time2 = np.round(time.time() - time1, 0)
             logger.info(
-                f"ARI: {ari_score}  --  Time : {time2}  --  Perpexit : {perplexity}  --  Learning_rate : {learning_rate}")
+                f"Ari-Score: {ari_score} | Perplexity:{perplexity} | Training time{time2}")
             row = [ari_score, perplexity, learning_rate]
             results[f"Test_{i} <--> {repr(model)}"] = row
             i += 1
 
-    # results_df = pd.DataFrame.from_dict(results, columns=["model", "ari_score", "perplexity", "learning_rate"],
-    #                                     orient='index')
-    # results_df.to_csv(data_path + "results.csv")
-
     with open(results_file, "w") as outfile:
         json.dump(results, outfile)
 
-    #tsne_visu_fct(x_tsne, labels, l_cat, y_cat_num, model)
 
-
-@click.command
+@click.command()
 @click.pass_context
 def extract_features(ctx: click.Context):
+    """
+    Extract features using different models and tuning parameters.
+    """
+    feature = 'lema_desc'
     logger.info("========== Initializing ==========")
     tuning_params = ([20, 30, 40, 50], [100, 200, 300])
     data = load_data()
-    features = get_features(data, CountVectorizer(), 'text')
+
+    features = get_features(data, CountVectorizer(), feature)
     test_model(data, 'category', CountVectorizer(), features, tuning_params)
 
-    features = get_features(data, TfidfVectorizer(), 'text')
+    features = get_features(data, TfidfVectorizer(), feature)
     test_model(data, 'category', TfidfVectorizer(), features, tuning_params)
 
-    embeddings = get_embeddings(data)
-    test_model(data, 'category', "Word2vec", embeddings, tuning_params)
-    # test_model(data, 'category', 'text', CountVectorizer(), tuning_params)
+    embeddings_instance = WordEmbeddings()
+    embeddings_result = embeddings_instance.perform_embeddings(data, feature)

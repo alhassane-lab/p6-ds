@@ -15,7 +15,7 @@ def setup_logging(logger_name: str, file_name):
     formatter = logging.Formatter('"%(asctime)s - %(name)s - %(levelname)s - %(message)s"')
 
     file_handler = logging.FileHandler(logs_folder + file_name + '.log')
-    file_handler.set_name(formatter)
+    file_handler.set_name("formatter")
     logger.addHandler(file_handler)
 
     stream_handler = logging.StreamHandler()
